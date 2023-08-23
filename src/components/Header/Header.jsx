@@ -36,8 +36,8 @@ const Header = () => {
         
         <div className={`pepito ${ menu ? 'isActive' : '' }`}>
             <div className="w-full justify-center items-center list-none font-josefin font-bold shadow md:hidden">
-                <li className="border-b border-gray-200 border-solid m-2 hover:text-customOrange"><a href="">HOME</a></li>
-                <li className="border-b border-gray-200 border-solid m-2 hover:text-customOrange"><a href="">CITIES</a></li>
+                <li className="border-b border-gray-200 border-solid m-2 hover:text-customOrange"><a href="/">HOME</a></li>
+                <li className="border-b border-gray-200 border-solid m-2 hover:text-customOrange"><a href="/cities">CITIES</a></li>
                 <li className="m-2 mb-0 hover:text-customOrange"><a href="">LOGIN</a></li>
             </div>
         </div>
