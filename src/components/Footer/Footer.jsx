@@ -15,7 +15,7 @@ const links = [
 
 const Footer = () => {
     return (
-    <footer className="flex items-center flex-col font-josefin">
+    <footer className="flex items-center flex-col font-josefin mt-auto">
     <hr className="w-[90%] mt-4" />
     <div className="flex flex-row">
         <ul className="flex flex-col">

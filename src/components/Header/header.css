@@ -1,0 +1,11 @@
+.pepito{
+    display: none;
+}
+
+.pepito.isActive{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin: 0.50rem;
+    margin-bottom: 0;
+}
