@@ -32,7 +32,7 @@ export const City = () => {
         />
       </div>
 
-      {filteredCities.length === 0 ? (<p>No cities match your criteria.</p> ) : (
+      {filteredCities.length === 0 ? (<p className="text-center flex items-center justify-center h-[69vh] text-2xl">❌ NO CITIES MATCH YOUR SEARCH ❌</p> ) : (
         <div className="card-container ">
           {Array.from({ length: Math.ceil(filteredCities.length / 5) }).map((_, groupIndex) => (
             <div className="flex xs:flex-col lg:flex-row  text-center" key={groupIndex}>
