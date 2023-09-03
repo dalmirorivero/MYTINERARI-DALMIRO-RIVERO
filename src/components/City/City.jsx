@@ -48,7 +48,7 @@ export const City = () => {
                       </div>
                   </div>
                   <div className="pb-2">
-                    <Button title='CHOOSE THIS TRIP' to={`/city/${city.country.toLowerCase()}`} />
+                    <Button title='CHOOSE THIS TRIP' to={`/city/${city._id}`} />
                   </div>
                 </div>
               ))}
