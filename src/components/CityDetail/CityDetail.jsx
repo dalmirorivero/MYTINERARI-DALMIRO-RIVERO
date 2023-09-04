@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import Button from '../Button/Button';
-import axios from 'axios'
+import { useSelector, useDispatch} from 'react-redux'
+import readCity from '../../store/actions/cityA'
+import readItineraries from '../../store/actions/itinerariesA'
 
 function generateEmojis(price) {
   const emoji = '💲';
@@ -9,41 +10,27 @@ function generateEmojis(price) {
 }
 
 function generateHashtags(hashtagsArray) {
-  if (!hashtagsArray || hashtagsArray.length === 0) return null; // Manejo de caso en el que no hay hashtags
+  if (!hashtagsArray || hashtagsArray.length === 0) return null; 
   const hashtagElements = hashtagsArray.map((hashtag, index) => (
-    <span key={index}>#{hashtag} </span>
+    <span key={index}> #{hashtag} </span>
   ));
   return (
-    <div className='text-blue-500 '>
+    <div className="text-blue-500">
       {hashtagElements}
     </div>
   );
 }
 
-
 export const CityDetail = () => {
   const { _id } = useParams();
-  const [city, setCity] = useState(null);
-  const [itineraries, setItineraries] = useState([]);
   const [showMore, setShowMore] = useState(false);
-
-useEffect(() => {
+  const dispatch = useDispatch();
+  const city = useSelector(store => store.city.city);
+  const itineraries = useSelector (store => store.itineraries.itineraries);
   
-  const dataFetch = async () => {
-    try {
-      const response = await axios.get(`http://localhost:8082/api/cities/${_id}`);
-      const responseData = response.data;
-      const foundCity = responseData.response; // Accedemos a la propiedad 'response' en la respuesta JSON
-      setCity(foundCity);
-
-      const itinerariesResponse = await axios.get(`http://localhost:8082/api/itineraries/cities/${_id}`);
-      const itinerariesData = itinerariesResponse.data.response;
-      setItineraries(itinerariesData);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  };
-  dataFetch();
+useEffect(() => {   
+    dispatch(readCity(_id))
+    dispatch(readItineraries(_id))    
 }, [_id]);
 
 const toggleShowMore = () => {
@@ -51,9 +38,7 @@ const toggleShowMore = () => {
 };
 
   if (!city) {
-    return <p>City not found.</p>;
-
-    
+    return <p>City not found.</p>;    
   }
 
   return (
@@ -61,54 +46,44 @@ const toggleShowMore = () => {
       <div className="flex flex-row justify-center text-center">
         <div className="card m-5 border rounded-lg shadow-md hover:shadow-xl flex flex-col justify-between">
           <div className="city-detail w-full" key={city.name}>
-            <img className=" border-b-8 w-full rounded-t-lg border-customOrange" src={city.image} alt="City" />
+            <img className="border-b-8 w-full rounded-t-lg border-customOrange" src={city.image} alt="City" />
             <div className="container py-2 xs:px-0 md:px-8 font-bold text-center flex flex-col justify-center">
               <h1 className="text-2xl text-customGreen mb-4">
                 {city.country}
                 <p className="font-thin inline"> - {city.name}</p>
               </h1>
+              {itineraries.length > 0 ? ( 
+                <ul>
+                {itineraries.map((itinerary) => (        
+                  <div key={itinerary._id}>
+                    <li className="flex flex-row justify-around items-center sm:ml-10 md:ml-8 lg:ml-12 xxl:ml-5">
+                      <div className="w-[6%] text-center flex flex-col items-center">
+                        <img className="border border-customGreen rounded-full" src={itinerary.user_id.photo} alt="userphoto" />
+                        <p className="text-center"> {itinerary.user_id.name} </p>          
+                      </div>
 
-              {itineraries.length > 0 ? (
+                      <div className="text-center">
+                        <p>Price range:</p>
+                        <p>{generateEmojis(itinerary.price)}</p>
+                      </div>
 
-  
-    <ul className=''>
-      {itineraries.map((itinerary) => (
-        <>
-        
-        <li key={itinerary._id} className=' flex flex-row justify-around items-center sm:ml-10 md:ml-8 lg:ml-12 xxl:ml-5'>
-         <div className="w-[6%] text-center flex flex-col items-center">
-          <img className="border border-customGreen rounded-full" src={itinerary.user_id.photo} alt="userphoto" />
-          <p className='text-center'>{itinerary.user_id.name}</p>
-          {/* <p className='text-sm italic font-thin'>Top user</p> */}
-        </div>
-
-        {/* Second Column: Price and Emojis */}
-        <div className="text-center">
-          <p>Price range:</p>
-          <p>{generateEmojis(itinerary.price)}</p>
-        </div>
-
-        {/* Third Column: Duration */}
-        <div className="">
-          <p>Duration: </p>
-          <p> {itinerary.duration} days.</p>
-        </div>
-
-        
-        </li>
-        <li className='flex justify-center items-center text-center'><p>❤{itinerary.like}</p></li>
-        <li className='flex justify-center items-center text-center'>
-        {generateHashtags(itinerary.hashtag)} 
-        </li>
-        </>
-      ))}
-    </ul>
-  
-) : (
-  <p>No itineraries available for {city.name}.</p>
-)}
-
-
+                      <div>
+                        <p>Duration:</p>
+                        <p> {itinerary.duration} days.</p>
+                      </div>
+                    </li>
+                    <li  className="flex justify-center items-center text-center">
+                      <p> ❤{itinerary.like} </p>
+                    </li>
+                    <li className="flex justify-center items-center text-center">
+                      {generateHashtags(itinerary.hashtag)} 
+                    </li>
+                  </div>
+                ))}
+                </ul>
+                ) : (
+                <p>No itineraries available for {city.name}.</p>
+              )}
 
               <div className="flex justify-center">
                 <button onClick={toggleShowMore} className="text-2xl hover:text-customOrange font-bold">
@@ -120,13 +95,14 @@ const toggleShowMore = () => {
                 </button>
               </div>
               {showMore && (
-                <div>
-                  {/* Agrega aquí tu contenido adicional sobre el itinerario */}
-                  <p>COMMENTS AND ACTIVITIES</p>
-                </div>
+              <div>
+                <p>⚠ UNDER CONSTRUCTION ⚠</p>
+              </div>
               )}
               <div className="flex justify-center mt-2 mb-2">
-              <button className='text-center mt-0 button-text mx-2 bg-customGreen hover:bg-customOrange text-white font-bold  py-1 px-4 rounded'><a href="/cities">GO BACK TO CITIES</a></button>
+                <button className="text-center mt-0 button-text mx-2 bg-customGreen hover:bg-customOrange text-white font-bold py-1 px-4 rounded">
+                  <a href="/cities">GO BACK TO CITIES</a>
+                </button>
               </div>
             </div>
           </div>

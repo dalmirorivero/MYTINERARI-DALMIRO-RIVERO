@@ -3,6 +3,8 @@ import MainLayout from './layouts/MainLayout'
 import Home from './pages/Index/Home'
 import Cities from './pages/Index/Cities'
 import { CityDetail } from './components/CityDetail/CityDetail'
+import store from './store/store.js'
+import { Provider } from 'react-redux'
 
 const router = createBrowserRouter([
   {
@@ -25,8 +27,10 @@ const router = createBrowserRouter([
 ])
 
 function App() {
-  return (        
-    <RouterProvider router={router}/>   
+  return (
+    <Provider store={store}>        
+    <RouterProvider router={router}/>
+    </Provider>   
   )
 };
 
