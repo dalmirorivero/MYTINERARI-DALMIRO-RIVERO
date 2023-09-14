@@ -3,7 +3,9 @@ import { useParams } from 'react-router-dom'
 import { useSelector, useDispatch} from 'react-redux'
 import readCity from '../../store/actions/cityA'
 import readItineraries from '../../store/actions/itinerariesA'
+import { Link } from 'react-router-dom'
 
+export const CityDetail = () => {
 function generateEmojis(price) {
   const emoji = '💲';
   return emoji.repeat(price);
@@ -21,7 +23,6 @@ function generateHashtags(hashtagsArray) {
   );
 }
 
-export const CityDetail = () => {
   const { _id } = useParams();
   const [showMore, setShowMore] = useState(false);
   const dispatch = useDispatch();
@@ -80,7 +81,6 @@ const toggleShowMore = () => {
                     <li className="flex justify-center items-center text-center">
                       {generateHashtags(itinerary.hashtag)} 
                     </li>
-                    {/* <img className="rounded-md " src="/Screenshot 2023-09-14 150813.png" alt="" /> */}
                   </div>
                 ))}
                 </ul>
@@ -107,7 +107,7 @@ const toggleShowMore = () => {
               )}
               <div className="flex justify-center mt-2 mb-2">
                 <button className="text-center mt-0 button-text mx-2 bg-customGreen hover:bg-customOrange text-white font-bold py-1 px-4 rounded">
-                  <a href="/cities">GO BACK TO CITIES</a>
+                <Link to="/cities">GO BACK TO CITIES</Link>
                 </button>
               </div>
             </div>

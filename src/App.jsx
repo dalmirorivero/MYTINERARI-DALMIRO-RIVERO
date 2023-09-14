@@ -24,16 +24,16 @@ const router = createBrowserRouter([
         element: <Cities />
       },
       {
-        path: "/city/:_id",
-        element: <CityDetail />
-      },
-      {
         path: "/login",
         element: <ProtectedRoute><Login /></ProtectedRoute> 
       },
       {
         path: "/register",
         element: <ProtectedRoute><Register /></ProtectedRoute>
+      },
+      {
+        path: "/detail/:_id",
+        element: <CityDetail />
       }
     ]
   }
