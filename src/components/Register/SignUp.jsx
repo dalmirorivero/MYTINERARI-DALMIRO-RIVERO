@@ -9,7 +9,6 @@ import { toast, Flip } from "react-toastify";
 
 export const Register = () => {
   const dispatch = useDispatch();
-
   const [data, setData] = useState({
     mail: "",
     name: "",
@@ -27,7 +26,6 @@ export const Register = () => {
 
   const handleSubmitData = async (e) => {
     e.preventDefault();
-
     if (!data.name || !data.mail || !data.password) {
       toast.error("Todos los campos son obligatorios", {
         position: "top-center",
@@ -80,7 +78,7 @@ export const Register = () => {
               handleSubmitGoogle({
                 mail: user.email,
                 name: user.given_name + " " + user.family_name,
-                password: "Donato23",
+                password: import.meta.env.VITE_GOOGLEPASS,
                 terms: true,
               });
             }}

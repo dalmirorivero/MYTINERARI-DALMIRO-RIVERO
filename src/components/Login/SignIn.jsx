@@ -21,8 +21,7 @@ export const Login = () => {
       const res = await axios.post("http://localhost:8082/api/auth/login", userData);
       console.log(res);
       dispatch(signin(res.data));
-      // window.location.href = '/';
-    } catch (error) {
+      } catch (error) {
       console.error(error);
     }
   };
@@ -31,8 +30,7 @@ export const Login = () => {
     const res = await axios.post("http://localhost:8082/api/auth/login", data);
     console.log(res);
     dispatch(signin(res.data));
-    // window.location.href = '/';
-  };
+    };
 
   return (
     <div>

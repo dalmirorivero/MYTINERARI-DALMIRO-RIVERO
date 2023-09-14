@@ -3,13 +3,10 @@ import { useSelector, useDispatch } from 'react-redux'
 import Button from '../Button/Button'
 import readCities from '../../store/actions/citiesA'
 
-
 export const City = () => {
   const [filterText, setFilterText] = useState('');
   const filteredCities = useSelector(store => store.cities.cities);
-  const dispatch = useDispatch();
-
-  
+  const dispatch = useDispatch(); 
 
 useEffect(
   () => {        
@@ -44,9 +41,7 @@ useEffect(
                       </div>
                   </div>
                   <div className="pb-2">
-                    
-                    <Button title='CHOOSE THIS TRIP' to={`/detail/${city._id}`} />
-                    
+                    <Button title='CHOOSE THIS TRIP' to={`/detail/${city._id}`} />                    
                   </div>
                 </div>
               ))}
