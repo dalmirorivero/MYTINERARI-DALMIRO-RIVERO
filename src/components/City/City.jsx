@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import Button from '../Button/Button'
 import { useSelector, useDispatch } from 'react-redux'
+import Button from '../Button/Button'
 import readCities from '../../store/actions/citiesA'
 
 export const City = () => {
   const [filterText, setFilterText] = useState('');
   const filteredCities = useSelector(store => store.cities.cities);
   const dispatch = useDispatch();
- 
+
 useEffect(
   () => {        
       dispatch(readCities(filterText))

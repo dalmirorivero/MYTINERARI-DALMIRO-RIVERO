@@ -51,7 +51,9 @@ const toggleShowMore = () => {
               <h1 className="text-2xl text-customGreen mb-4">
                 {city.country}
                 <p className="font-thin inline"> - {city.name}</p>
+                <p className='mt-0 pt-0 text-sm font-bold italic text-gray-400'>City description</p>
               </h1>
+             
               {itineraries.length > 0 ? ( 
                 <ul>
                 {itineraries.map((itinerary) => (        
@@ -78,6 +80,7 @@ const toggleShowMore = () => {
                     <li className="flex justify-center items-center text-center">
                       {generateHashtags(itinerary.hashtag)} 
                     </li>
+                    {/* <img className="rounded-md " src="/Screenshot 2023-09-14 150813.png" alt="" /> */}
                   </div>
                 ))}
                 </ul>
@@ -95,8 +98,11 @@ const toggleShowMore = () => {
                 </button>
               </div>
               {showMore && (
-              <div>
-                <p>⚠ UNDER CONSTRUCTION ⚠</p>
+              <div className='flex flex-row justify-center'>
+                <img className="rounded-md w-1/12 mx-4" src="/Screenshot 2023-09-14 150813.png" alt="" />
+                <img className="rounded-md w-1/12 mx-4" src="/Screenshot 2023-09-14 150813.png" alt="" />
+                <img className="rounded-md w-1/12 mx-4" src="/Screenshot 2023-09-14 150813.png" alt="" />
+                <img className="rounded-md w-1/12 mx-4" src="/Screenshot 2023-09-14 150813.png" alt="" />
               </div>
               )}
               <div className="flex justify-center mt-2 mb-2">
